@@ -376,6 +376,10 @@ deploy_central_via_operator() {
     customize_envVars+=$'\n        value: "true"'
     customize_envVars+=$'\n      - name: ROX_INIT_CONTAINER_SUPPORT'
     customize_envVars+=$'\n        value: "true"'
+    if [[ -n "${SCANNER_V4_CI_VULN_BUNDLE_ALLOWLIST:-}" ]]; then
+        customize_envVars+=$'\n      - name: SCANNER_V4_MATCHER_VULN_BUNDLE_ALLOWLIST'
+        customize_envVars+=$'\n        value: '"\"${SCANNER_V4_CI_VULN_BUNDLE_ALLOWLIST}\""
+    fi
 
     local scannerV4ScannerComponent="Default"
     case "${ROX_SCANNER_V4:-}" in
