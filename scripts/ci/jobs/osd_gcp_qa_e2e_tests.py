@@ -4,6 +4,7 @@
 Run qa-tests-backend in an OSD GCP cluster provided via automation-flavors/osd.
 """
 import os
+import scanner_v4_defaults
 from base_qa_e2e_test import make_qa_e2e_test_runner
 from clusters import AutomationFlavorsCluster
 
@@ -14,5 +15,9 @@ os.environ["KUBERNETES_PROVIDER"] = "ocp"
 
 os.environ["ROX_RISK_REPROCESSING_INTERVAL"] = "15s"
 os.environ["ROX_SENSOR_CONNECTION_RETRY_MAX_INTERVAL"] = "30s"
+
+# Scanner V4
+os.environ["SCANNER_V4_DB_STORAGE_CLASS"] = "ssd-csi"  # default was standard-csi
+os.environ["SCANNER_V4_CI_VULN_BUNDLE_ALLOWLIST"] = scanner_v4_defaults.VULN_BUNDLE_ALLOWLIST
 
 make_qa_e2e_test_runner(cluster=AutomationFlavorsCluster()).run()
