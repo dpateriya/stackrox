@@ -80,6 +80,8 @@ deploy_stackrox() {
 
     if retrying_kubectl </dev/null -n "${central_namespace}" get deployment scanner-v4-indexer >/dev/null 2>&1; then
         wait_for_scanner_V4 "${central_namespace}"
+    elif retrying_kubectl </dev/null -n "${central_namespace}" get deployment scanner >/dev/null 2>&1; then
+        wait_for_ready_deployment "${central_namespace}" "scanner" 600
     fi
 
     touch "${STATE_DEPLOYED}"
