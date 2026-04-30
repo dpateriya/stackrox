@@ -289,7 +289,11 @@ func NewIndexer(ctx context.Context, cfg config.IndexerConfig) (Indexer, error) 
 
 	var repo2cpeFetcher *RepositoryToCPEFetcher
 	if cfg.RepositoryToCPEURL != "" {
-		repo2cpeFetcher = NewRepositoryToCPEFetcher(client, cfg.RepositoryToCPEURL)
+		var err error
+		repo2cpeFetcher, err = NewRepositoryToCPEFetcher(client, cfg.RepositoryToCPEURL, cfg.RepositoryToCPEFile)
+		if err != nil {
+			return nil, fmt.Errorf("creating repository-to-CPE fetcher: %w", err)
+		}
 	} else if features.SBOMScanning.Enabled() {
 		zlog.Error(ctx).Msg("unconfigured repository_to_cpe_url may lead to inaccurate SBOM scanning results")
 	}
@@ -398,11 +402,23 @@ func (i *localIndexer) Ready(ctx context.Context) error {
 
 // GetRepositoryToCPEMapping fetches the repository-to-CPE mapping from upstream.
 // If ifModifiedSince is provided, returns Modified=false if data hasn't changed.
+// On the initial fetch (empty ifModifiedSince), if the URL fetch fails and seed
+// data was loaded from a file, the seed data is returned as a fallback.
 func (i *localIndexer) GetRepositoryToCPEMapping(ctx context.Context, ifModifiedSince string) (*FetchResult, error) {
 	if i.repositoryToCPEFetcher == nil {
 		return nil, errors.New("unsupported repository_to_cpe_url configuration")
 	}
-	return i.repositoryToCPEFetcher.Fetch(ctx, ifModifiedSince)
+	result, err := i.repositoryToCPEFetcher.Fetch(ctx, ifModifiedSince)
+	if err != nil && ifModifiedSince == "" {
+		if initial := i.repositoryToCPEFetcher.InitialData(); initial != nil {
+			zlog.Warn(ctx).Err(err).Msg("URL fetch failed; falling back to seed mapping file")
+			return &FetchResult{
+				Modified: true,
+				Data:     initial,
+			}, nil
+		}
+	}
+	return result, err
 }
 
 // IndexContainerImage creates a ClairCore index report for a given container
