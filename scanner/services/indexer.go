@@ -228,7 +228,7 @@ func (s *indexerService) GetRepositoryToCPEMapping(ctx context.Context, req *v4.
 	fetchResult, err := s.indexer.GetRepositoryToCPEMapping(ctx, req.GetIfModifiedSince())
 	if err != nil {
 		zlog.Error(ctx).Err(err).Msg("failed to get repository-to-CPE mapping")
-		return nil, err
+		return nil, errox.ServerError.New("fetching repository-to-CPE mapping").CausedBy(err)
 	}
 
 	// If not modified, return early.
@@ -237,6 +237,11 @@ func (s *indexerService) GetRepositoryToCPEMapping(ctx context.Context, req *v4.
 			Modified:     false,
 			LastModified: fetchResult.LastModified,
 		}, nil
+	}
+
+	if fetchResult.Data == nil {
+		zlog.Error(ctx).Msg("indexer returned modified=true with nil data")
+		return nil, errox.InvariantViolation.New("indexer returned modified result with no data")
 	}
 
 	// Convert to proto format.

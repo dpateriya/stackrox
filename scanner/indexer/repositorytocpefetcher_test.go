@@ -51,7 +51,7 @@ func TestRepositoryToCPEFetcher_Fetch(t *testing.T) {
 			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
-			wantErr: "unexpected status code 500",
+			wantErr: "unexpected status code 500 from",
 		},
 		"malformed JSON body": {
 			handler: func(w http.ResponseWriter, _ *http.Request) {
