@@ -8,11 +8,13 @@ import (
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/quay/claircore"
+	"github.com/quay/claircore/purl"
 	ccsbom "github.com/quay/claircore/sbom"
 	"github.com/quay/zlog"
 	v4 "github.com/stackrox/rox/generated/internalapi/scanner/v4"
 	"github.com/stackrox/rox/pkg/env"
 	"github.com/stackrox/rox/pkg/errox"
+	"github.com/stackrox/rox/pkg/features"
 	"github.com/stackrox/rox/pkg/grpc/authz"
 	"github.com/stackrox/rox/pkg/grpc/authz/allow"
 	"github.com/stackrox/rox/pkg/grpc/authz/idcheck"
@@ -21,6 +23,7 @@ import (
 	"github.com/stackrox/rox/pkg/scannerv4/mappers"
 	"github.com/stackrox/rox/scanner/indexer"
 	"github.com/stackrox/rox/scanner/matcher"
+	"github.com/stackrox/rox/scanner/matcher/repo2cpe"
 	scannersbom "github.com/stackrox/rox/scanner/sbom"
 	"github.com/stackrox/rox/scanner/services/validators"
 	"google.golang.org/grpc"
@@ -41,11 +44,13 @@ var matcherAuth = perrpc.FromMap(map[authz.Authorizer][]string{
 type matcherService struct {
 	v4.UnimplementedMatcherServer
 	// indexer is used to retrieve index reports.
-	indexer indexer.ReportGetter
+	indexer indexer.ReportProvider
 	// matcher is used to match vulnerabilities with index contents.
 	matcher matcher.Matcher
 	// sbomDecoder decodes SBOM documents into claircore index reports.
 	sbomDecoder ccsbom.Decoder
+	// repo2cpeUpdater caches repository-to-CPE mappings for SBOM decoding.
+	repo2cpeUpdater *repo2cpe.Updater
 	// disableEmptyContents allows the vulnerability matching API to reject requests with empty contents.
 	disableEmptyContents bool
 	// anonymousAuthEnabled specifies if the service should allow for traffic from anonymous users.
@@ -54,13 +59,27 @@ type matcherService struct {
 
 // NewMatcherService creates a new vulnerability matcher gRPC service, to enable
 // empty content in enrich requests, pass a non-nil indexer.
-func NewMatcherService(matcher matcher.Matcher, indexer indexer.ReportGetter) *matcherService {
+func NewMatcherService(matcher matcher.Matcher, indexer indexer.ReportProvider) *matcherService {
+	var rhelTransformFuncs []purl.TransformerFunc
+	var updater *repo2cpe.Updater
+	if features.SBOMScanning.Enabled() && indexer != nil {
+		updater = repo2cpe.NewUpdater(indexer)
+		rhelTransformFuncs = append(rhelTransformFuncs, scannersbom.NewRHELCPETransformFunc(updater))
+	}
 	return &matcherService{
 		matcher:              matcher,
 		indexer:              indexer,
-		sbomDecoder:          scannersbom.NewSPDXDecoder(scannersbom.NewPURLRegistry()),
+		sbomDecoder:          scannersbom.NewSPDXDecoder(scannersbom.NewPURLRegistry(rhelTransformFuncs...)),
+		repo2cpeUpdater:      updater,
 		disableEmptyContents: indexer == nil,
 		anonymousAuthEnabled: env.ScannerV4AnonymousAuth.BooleanSetting(),
+	}
+}
+
+// Close releases resources held by the service.
+func (s *matcherService) Close() {
+	if s.repo2cpeUpdater != nil {
+		s.repo2cpeUpdater.Close()
 	}
 }
 

@@ -37,7 +37,6 @@ import (
 	"github.com/stackrox/rox/scanner/enricher/fixedby"
 	"github.com/stackrox/rox/scanner/enricher/nvd"
 	"github.com/stackrox/rox/scanner/internal/httputil"
-	"github.com/stackrox/rox/scanner/matcher/repo2cpe"
 	"github.com/stackrox/rox/scanner/matcher/updater/vuln"
 	"github.com/stackrox/rox/scanner/sbom"
 )
@@ -88,17 +87,13 @@ type matcherImpl struct {
 	metadataStore postgres.MatcherMetadataStore
 	pool          *pgxpool.Pool
 
-	vulnUpdater     *vuln.Updater
-	repo2cpeUpdater *repo2cpe.Updater
-	sbomer          *sbom.SBOMer
+	vulnUpdater *vuln.Updater
+	sbomer      *sbom.SBOMer
 
 	readyWithVulns bool
 }
 
-// NewMatcher creates a new matcher. If repo2cpeGetter is non-nil and SBOM
-// scanning is enabled, a background updater is started for the
-// repository-to-CPE mapping.
-func NewMatcher(ctx context.Context, cfg config.MatcherConfig, repo2cpeGetter repo2cpe.Getter) (Matcher, error) {
+func NewMatcher(ctx context.Context, cfg config.MatcherConfig) (Matcher, error) {
 	ctx = zlog.ContextWithValues(ctx, "component", "scanner/backend/matcher.NewMatcher")
 
 	var success bool
@@ -205,15 +200,6 @@ func NewMatcher(ctx context.Context, cfg config.MatcherConfig, repo2cpeGetter re
 	// include vulnerabilities vs. not.
 	sbomer := sbom.NewSBOMer()
 
-	var repo2cpeUpdater *repo2cpe.Updater
-	if features.SBOMScanning.Enabled() {
-		if repo2cpeGetter != nil {
-			repo2cpeUpdater = repo2cpe.NewUpdater(repo2cpeGetter)
-		} else {
-			zlog.Error(ctx).Msg("failed to create remote indexer for repo-to-CPE mapping; SBOM CPE data may be incomplete")
-		}
-	}
-
 	// Start the vulnerability updater.
 	go func() {
 		if err := vulnUpdater.Start(); err != nil {
@@ -227,9 +213,8 @@ func NewMatcher(ctx context.Context, cfg config.MatcherConfig, repo2cpeGetter re
 		metadataStore: metadataStore,
 		pool:          pool,
 
-		vulnUpdater:     vulnUpdater,
-		repo2cpeUpdater: repo2cpeUpdater,
-		sbomer:          sbomer,
+		vulnUpdater: vulnUpdater,
+		sbomer:      sbomer,
 
 		readyWithVulns: cfg.Readiness == config.ReadinessVulnerability,
 	}, nil
@@ -256,9 +241,6 @@ func (m *matcherImpl) GetSBOM(ctx context.Context, ir *claircore.IndexReport, op
 // Close closes the matcher.
 func (m *matcherImpl) Close(ctx context.Context) error {
 	ctx = zlog.ContextWithValues(ctx, "component", "scanner/backend/matcher.Close")
-	if m.repo2cpeUpdater != nil {
-		m.repo2cpeUpdater.Close()
-	}
 	err := errors.Join(m.vulnUpdater.Stop(), m.libVuln.Close(ctx))
 	m.pool.Close()
 	return err

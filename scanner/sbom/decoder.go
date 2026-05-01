@@ -17,11 +17,11 @@ import (
 	"github.com/quay/claircore/ubuntu"
 )
 
-func NewPURLRegistry() *purl.Registry {
+func NewPURLRegistry(rhelTransformFuncs ...purl.TransformerFunc) *purl.Registry {
 	reg := purl.NewRegistry()
 
 	// Distro-based ecosystems with fixed namespaces.
-	reg.RegisterPurlType(rhel.PURLType, rhel.PURLNamespace, rhel.ParseRPMPURL)
+	reg.RegisterPurlType(rhel.PURLType, rhel.PURLNamespace, rhel.ParseRPMPURL, rhelTransformFuncs...)
 	reg.RegisterPurlType(suse.PURLType, suse.PURLNamespace, suse.ParsePURL)
 	reg.RegisterPurlType(oracle.PURLType, oracle.PURLNamespace, oracle.ParsePURL)
 	reg.RegisterPurlType(photon.PURLType, photon.PURLNamespace, photon.ParsePURL)
