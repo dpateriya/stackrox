@@ -501,13 +501,13 @@ arches:
     name: libbrotli
     evr: 1.0.9-9.el9_7
     sourcerpm: brotli-1.0.9-9.el9_7.src.rpm
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/aarch64/baseos/os/Packages/l/libcap-2.48-10.el9.aarch64.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/aarch64/baseos/os/Packages/l/libcap-2.48-10.el9_7.1.aarch64.rpm
     repoid: rhel-9-for-aarch64-baseos-rpms
-    size: 71186
-    checksum: sha256:d6323aa2737cb8e19ea4566a9fa14839d553bd81ff4f04d7d69aec679a8d3ceb
+    size: 78022
+    checksum: sha256:3ea8b606ad8357faca4e134858c09ee824bc5c625caf1214a8f85412c997c007
     name: libcap
-    evr: 2.48-10.el9
-    sourcerpm: libcap-2.48-10.el9.src.rpm
+    evr: 2.48-10.el9_7.1
+    sourcerpm: libcap-2.48-10.el9_7.1.src.rpm
   - url: https://cdn.redhat.com/content/dist/rhel9/9/aarch64/baseos/os/Packages/l/libcap-ng-0.8.2-7.el9.aarch64.rpm
     repoid: rhel-9-for-aarch64-baseos-rpms
     size: 36033
@@ -1309,12 +1309,12 @@ arches:
     checksum: sha256:4a5023846942905da4226503f6a9da91a66bf6c179dc21d2e4210b3371399b17
     name: less
     evr: 590-6.el9
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/aarch64/baseos/source/SRPMS/Packages/l/libcap-2.48-10.el9.src.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/aarch64/baseos/source/SRPMS/Packages/l/libcap-2.48-10.el9_7.1.src.rpm
     repoid: rhel-9-for-aarch64-baseos-source-rpms
-    size: 200754
-    checksum: sha256:6489ac53fc6ac70a0bd748739d9caed850a93eafcd0e069ede69bd4d05c86521
+    size: 208035
+    checksum: sha256:cd7b587671c0160d85802c044be0dc5a61366db815656a2a4210067a2d2c7303
     name: libcap
-    evr: 2.48-10.el9
+    evr: 2.48-10.el9_7.1
   - url: https://cdn.redhat.com/content/dist/rhel9/9/aarch64/baseos/source/SRPMS/Packages/l/libcap-ng-0.8.2-7.el9.src.rpm
     repoid: rhel-9-for-aarch64-baseos-source-rpms
     size: 470599
@@ -1622,10 +1622,10 @@ arches:
     name: zstd
     evr: 1.5.5-1.el9
   module_metadata:
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/aarch64/appstream/os/repodata/a758f17a9b1a76c01a30ac2a53ad68b573784ff714012c737c2b043d0ec6c7e0-modules.yaml.gz
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/aarch64/appstream/os/repodata/d057293debb63c45d22017d3fd40ca55bccc2a89dafdd1bf5b789113eae28ea8-modules.yaml.gz
     repoid: rhel-9-for-aarch64-appstream-rpms
     size: 45439
-    checksum: sha256:a758f17a9b1a76c01a30ac2a53ad68b573784ff714012c737c2b043d0ec6c7e0
+    checksum: sha256:d057293debb63c45d22017d3fd40ca55bccc2a89dafdd1bf5b789113eae28ea8
 - arch: ppc64le
   packages:
   - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/appstream/os/Packages/c/cpp-11.5.0-11.el9.ppc64le.rpm
@@ -2125,13 +2125,13 @@ arches:
     name: libbrotli
     evr: 1.0.9-9.el9_7
     sourcerpm: brotli-1.0.9-9.el9_7.src.rpm
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/baseos/os/Packages/l/libcap-2.48-10.el9.ppc64le.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/baseos/os/Packages/l/libcap-2.48-10.el9_7.1.ppc64le.rpm
     repoid: rhel-9-for-ppc64le-baseos-rpms
-    size: 76082
-    checksum: sha256:f3df556c418c721832a8c887e81ce4bcbe15632d177fb90f8c070bd7c08d210e
+    size: 82822
+    checksum: sha256:d9b3609a24a45a47919d9eafd3099d10f64b2b89b0c51c686386bb1336c3b5dd
     name: libcap
-    evr: 2.48-10.el9
-    sourcerpm: libcap-2.48-10.el9.src.rpm
+    evr: 2.48-10.el9_7.1
+    sourcerpm: libcap-2.48-10.el9_7.1.src.rpm
   - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/baseos/os/Packages/l/libcap-ng-0.8.2-7.el9.ppc64le.rpm
     repoid: rhel-9-for-ppc64le-baseos-rpms
     size: 37600
@@ -2940,12 +2940,12 @@ arches:
     checksum: sha256:4a5023846942905da4226503f6a9da91a66bf6c179dc21d2e4210b3371399b17
     name: less
     evr: 590-6.el9
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/baseos/source/SRPMS/Packages/l/libcap-2.48-10.el9.src.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/baseos/source/SRPMS/Packages/l/libcap-2.48-10.el9_7.1.src.rpm
     repoid: rhel-9-for-ppc64le-baseos-source-rpms
-    size: 200754
-    checksum: sha256:6489ac53fc6ac70a0bd748739d9caed850a93eafcd0e069ede69bd4d05c86521
+    size: 208035
+    checksum: sha256:cd7b587671c0160d85802c044be0dc5a61366db815656a2a4210067a2d2c7303
     name: libcap
-    evr: 2.48-10.el9
+    evr: 2.48-10.el9_7.1
   - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/baseos/source/SRPMS/Packages/l/libcap-ng-0.8.2-7.el9.src.rpm
     repoid: rhel-9-for-ppc64le-baseos-source-rpms
     size: 470599
@@ -3259,10 +3259,10 @@ arches:
     name: zstd
     evr: 1.5.5-1.el9
   module_metadata:
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/appstream/os/repodata/6ca33640b8ff737cd28a43347476be2c6dc3e193c2fb010701aebb96925cb3db-modules.yaml.gz
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/ppc64le/appstream/os/repodata/2b47d481d2f455507b8b057b0ab0ef02f3880bb33e5c727ae9973ce9e597aad3-modules.yaml.gz
     repoid: rhel-9-for-ppc64le-appstream-rpms
     size: 42369
-    checksum: sha256:6ca33640b8ff737cd28a43347476be2c6dc3e193c2fb010701aebb96925cb3db
+    checksum: sha256:2b47d481d2f455507b8b057b0ab0ef02f3880bb33e5c727ae9973ce9e597aad3
 - arch: s390x
   packages:
   - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/appstream/os/Packages/c/cpp-11.5.0-11.el9.s390x.rpm
@@ -3762,13 +3762,13 @@ arches:
     name: libbrotli
     evr: 1.0.9-9.el9_7
     sourcerpm: brotli-1.0.9-9.el9_7.src.rpm
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/baseos/os/Packages/l/libcap-2.48-10.el9.s390x.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/baseos/os/Packages/l/libcap-2.48-10.el9_7.1.s390x.rpm
     repoid: rhel-9-for-s390x-baseos-rpms
-    size: 71162
-    checksum: sha256:28e75f5a56dbc4a43b6dfc35df113daa48cbd3bf96f364fb6bbe8cb358252dbe
+    size: 77732
+    checksum: sha256:78d75f7e2c991425bde05308d29f6f10e850010168a802e1fa59bb0b78fc3b6f
     name: libcap
-    evr: 2.48-10.el9
-    sourcerpm: libcap-2.48-10.el9.src.rpm
+    evr: 2.48-10.el9_7.1
+    sourcerpm: libcap-2.48-10.el9_7.1.src.rpm
   - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/baseos/os/Packages/l/libcap-ng-0.8.2-7.el9.s390x.rpm
     repoid: rhel-9-for-s390x-baseos-rpms
     size: 36348
@@ -4564,12 +4564,12 @@ arches:
     checksum: sha256:4a5023846942905da4226503f6a9da91a66bf6c179dc21d2e4210b3371399b17
     name: less
     evr: 590-6.el9
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/baseos/source/SRPMS/Packages/l/libcap-2.48-10.el9.src.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/baseos/source/SRPMS/Packages/l/libcap-2.48-10.el9_7.1.src.rpm
     repoid: rhel-9-for-s390x-baseos-source-rpms
-    size: 200754
-    checksum: sha256:6489ac53fc6ac70a0bd748739d9caed850a93eafcd0e069ede69bd4d05c86521
+    size: 208035
+    checksum: sha256:cd7b587671c0160d85802c044be0dc5a61366db815656a2a4210067a2d2c7303
     name: libcap
-    evr: 2.48-10.el9
+    evr: 2.48-10.el9_7.1
   - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/baseos/source/SRPMS/Packages/l/libcap-ng-0.8.2-7.el9.src.rpm
     repoid: rhel-9-for-s390x-baseos-source-rpms
     size: 470599
@@ -4877,10 +4877,10 @@ arches:
     name: zstd
     evr: 1.5.5-1.el9
   module_metadata:
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/appstream/os/repodata/343980efd1197ea2ca98365b73bced61c440f13c98622e6778c3b89500bf1c39-modules.yaml.gz
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/s390x/appstream/os/repodata/a960fe652622be53c1f9cb14a58c372e00feb4d40cc32824d28062cdb43bb1e5-modules.yaml.gz
     repoid: rhel-9-for-s390x-appstream-rpms
     size: 44076
-    checksum: sha256:343980efd1197ea2ca98365b73bced61c440f13c98622e6778c3b89500bf1c39
+    checksum: sha256:a960fe652622be53c1f9cb14a58c372e00feb4d40cc32824d28062cdb43bb1e5
 - arch: x86_64
   packages:
   - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/appstream/os/Packages/c/cpp-11.5.0-11.el9.x86_64.rpm
@@ -5366,13 +5366,13 @@ arches:
     name: libbrotli
     evr: 1.0.9-9.el9_7
     sourcerpm: brotli-1.0.9-9.el9_7.src.rpm
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/os/Packages/l/libcap-2.48-10.el9.x86_64.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/os/Packages/l/libcap-2.48-10.el9_7.1.x86_64.rpm
     repoid: rhel-9-for-x86_64-baseos-rpms
-    size: 71887
-    checksum: sha256:2bb46ce572661112552e403f86480af37a2b6c0a4566a36d8e931d3c310047b9
+    size: 78926
+    checksum: sha256:47a89779b20db77b425aa7cafc4c9af3912d197e2abd07ab74cf540cc123357d
     name: libcap
-    evr: 2.48-10.el9
-    sourcerpm: libcap-2.48-10.el9.src.rpm
+    evr: 2.48-10.el9_7.1
+    sourcerpm: libcap-2.48-10.el9_7.1.src.rpm
   - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/os/Packages/l/libcap-ng-0.8.2-7.el9.x86_64.rpm
     repoid: rhel-9-for-x86_64-baseos-rpms
     size: 36752
@@ -6174,12 +6174,12 @@ arches:
     checksum: sha256:4a5023846942905da4226503f6a9da91a66bf6c179dc21d2e4210b3371399b17
     name: less
     evr: 590-6.el9
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/source/SRPMS/Packages/l/libcap-2.48-10.el9.src.rpm
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/source/SRPMS/Packages/l/libcap-2.48-10.el9_7.1.src.rpm
     repoid: rhel-9-for-x86_64-baseos-source-rpms
-    size: 200754
-    checksum: sha256:6489ac53fc6ac70a0bd748739d9caed850a93eafcd0e069ede69bd4d05c86521
+    size: 208035
+    checksum: sha256:cd7b587671c0160d85802c044be0dc5a61366db815656a2a4210067a2d2c7303
     name: libcap
-    evr: 2.48-10.el9
+    evr: 2.48-10.el9_7.1
   - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/baseos/source/SRPMS/Packages/l/libcap-ng-0.8.2-7.el9.src.rpm
     repoid: rhel-9-for-x86_64-baseos-source-rpms
     size: 470599
@@ -6487,7 +6487,7 @@ arches:
     name: zstd
     evr: 1.5.5-1.el9
   module_metadata:
-  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/appstream/os/repodata/d13c8c6b76aa9e1962f8496ae040ba28eaef74b1a01e32f83288e115795d7861-modules.yaml.gz
+  - url: https://cdn.redhat.com/content/dist/rhel9/9/x86_64/appstream/os/repodata/2a828cb76a03c3f1b4b4964d203d49cab917991c5ed84bd44a42deb739e62d05-modules.yaml.gz
     repoid: rhel-9-for-x86_64-appstream-rpms
     size: 45535
-    checksum: sha256:d13c8c6b76aa9e1962f8496ae040ba28eaef74b1a01e32f83288e115795d7861
+    checksum: sha256:2a828cb76a03c3f1b4b4964d203d49cab917991c5ed84bd44a42deb739e62d05
